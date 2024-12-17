@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "from": "New York",
+    "to": "Los Angeles",
+    "departureDate": "2024-12-20",
+    "returnDate": "2024-12-25",
+    "classes": [
+      {
+        "classType": "Economy",
+        "price": 200
+      },
+      {
+        "classType": "Premium Economy",
+        "price": 350
+      },
+      {
+        "classType": "Business Class",
+        "price": 1000
+      }
+    ],
+    "airline": "Delta Airlines",
+    "travelTime": "5h 30m",
+    "directFlight": true
+  },
+  {
+    "id": 2,
+    "from": "New York",
+    "to": "San Francisco",
+    "departureDate": "2024-12-22",
+    "returnDate": "2024-12-28",
+    "classes": [
+      {
+        "classType": "Economy",
+        "price": 250
+      },
+      {
+        "classType": "Premium Economy",
+        "price": 400
+      },
+      {
+        "classType": "Business Class",
+        "price": 1200
+      }
+    ],
+    "airline": "American Airlines",
+    "travelTime": "6h 10m",
+    "directFlight": false
+  },
+  {
+    "id": 3,
+    "from": "Chicago",
+    "to": "London",
+    "departureDate": "2024-12-15",
+    "returnDate": "2024-12-22",
+    "classes": [
+      {
+        "classType": "Economy",
+        "price": 600
+      },
+      {
+        "classType": "Premium Economy",
+        "price": 900
+      },
+      {
+        "classType": "Business Class",
+        "price": 3000
+      }
+    ],
+    "airline": "British Airways",
+    "travelTime": "8h 45m",
+    "directFlight": true
+  },
+  {
+    "id": 4,
+    "from": "Los Angeles",
+    "to": "Tokyo",
+    "departureDate": "2024-12-10",
+    "returnDate": "2024-12-18",
+    "classes": [
+      {
+        "classType": "Economy",
+        "price": 700
+      },
+      {
+        "classType": "Premium Economy",
+        "price": 1000
+      },
+      {
+        "classType": "Business Class",
+        "price": 2500
+      }
+    ],
+    "airline": "Japan Airlines",
+    "travelTime": "11h 30m",
+    "directFlight": false
+  }
+]
