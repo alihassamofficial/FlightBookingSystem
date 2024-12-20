@@ -15,8 +15,13 @@ function Navbar() {
         {/* Navigation links on the right */}
         <ul className="flex space-x-6">
           <li>
-            <Link to="/" className="hover:text-gray-200">
+            {/* <Link to="/" className="hover:text-gray-200">
               Home
+            </Link> */}
+          </li>
+          <li>
+            <Link to="/" className="hover:text-gray-200">
+              Flight
             </Link>
           </li>
           <li>
@@ -32,6 +37,16 @@ function Navbar() {
           <li>
             <Link to="/contact-us" className="hover:text-gray-200">
               Contact Us
+            </Link>
+          </li>
+          <li>
+            <Link to="/login" className="hover:text-gray-200">
+              Login
+            </Link>
+          </li>
+          <li>
+            <Link to="/signup" className="hover:text-gray-200">
+              SignUp
             </Link>
           </li>
         </ul>

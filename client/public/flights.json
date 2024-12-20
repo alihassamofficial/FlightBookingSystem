@@ -4,95 +4,201 @@
     "from": "New York",
     "to": "Los Angeles",
     "departureDate": "2024-12-20",
+    "arrivalDate": "2024-12-20",
     "returnDate": "2024-12-25",
+    "departureTime": "08:00",
+    "arrivalTime": "13:30",
+    "flightStops": 0,
+    "flightNumber": "DL100",
     "classes": [
       {
         "classType": "Economy",
-        "price": 200
+        "prices": {
+          "adult": 200,
+          "child": 150,
+          "infant": 50
+        }
       },
       {
         "classType": "Premium Economy",
-        "price": 350
+        "prices": {
+          "adult": 350,
+          "child": 250,
+          "infant": 100
+        }
       },
       {
         "classType": "Business Class",
-        "price": 1000
+        "prices": {
+          "adult": 1000,
+          "child": 800,
+          "infant": 300
+        }
       }
     ],
     "airline": "Delta Airlines",
     "travelTime": "5h 30m",
-    "directFlight": true
+    "directFlight": true,
+    "image": "./images/airlines/DeltaAirlines.png"
   },
   {
     "id": 2,
     "from": "New York",
     "to": "San Francisco",
     "departureDate": "2024-12-22",
+    "arrivalDate": "2024-12-22",
     "returnDate": "2024-12-28",
+    "departureTime": "09:15",
+    "arrivalTime": "15:25",
+    "flightStops": 1,
+    "flightNumber": "AA200",
     "classes": [
       {
         "classType": "Economy",
-        "price": 250
+        "prices": {
+          "adult": 250,
+          "child": 200,
+          "infant": 70
+        }
       },
       {
         "classType": "Premium Economy",
-        "price": 400
+        "prices": {
+          "adult": 400,
+          "child": 300,
+          "infant": 150
+        }
       },
       {
         "classType": "Business Class",
-        "price": 1200
+        "prices": {
+          "adult": 1200,
+          "child": 1000,
+          "infant": 400
+        }
       }
     ],
     "airline": "American Airlines",
     "travelTime": "6h 10m",
-    "directFlight": false
+    "directFlight": false,
+    "image": "/images/airlines/AmericanAirlines.png"
   },
   {
     "id": 3,
     "from": "Chicago",
     "to": "London",
     "departureDate": "2024-12-15",
+    "arrivalDate": "2024-12-16",
     "returnDate": "2024-12-22",
+    "departureTime": "17:45",
+    "arrivalTime": "08:30",
+    "flightStops": 0,
+    "flightNumber": "BA300",
     "classes": [
       {
         "classType": "Economy",
-        "price": 600
+        "prices": {
+          "adult": 600,
+          "child": 450,
+          "infant": 200
+        }
       },
       {
         "classType": "Premium Economy",
-        "price": 900
+        "prices": {
+          "adult": 900,
+          "child": 700,
+          "infant": 300
+        }
       },
       {
         "classType": "Business Class",
-        "price": 3000
+        "prices": {
+          "adult": 3000,
+          "child": 2500,
+          "infant": 1200
+        }
       }
     ],
     "airline": "British Airways",
     "travelTime": "8h 45m",
-    "directFlight": true
+    "directFlight": true,
+    "image": "/images/airlines/BritishAirways.png"
   },
   {
     "id": 4,
     "from": "Los Angeles",
     "to": "Tokyo",
     "departureDate": "2024-12-10",
+    "arrivalDate": "2024-12-11",
     "returnDate": "2024-12-18",
+    "departureTime": "12:00",
+    "arrivalTime": "16:30",
+    "flightStops": 1,
+    "flightNumber": "JL400",
     "classes": [
       {
         "classType": "Economy",
-        "price": 700
+        "prices": {
+          "adult": 700,
+          "child": 500,
+          "infant": 250
+        }
       },
       {
         "classType": "Premium Economy",
-        "price": 1000
+        "prices": {
+          "adult": 1000,
+          "child": 800,
+          "infant": 400
+        }
       },
       {
         "classType": "Business Class",
-        "price": 2500
+        "prices": {
+          "adult": 2500,
+          "child": 2000,
+          "infant": 1200
+        }
       }
     ],
     "airline": "Japan Airlines",
     "travelTime": "11h 30m",
-    "directFlight": false
+    "directFlight": false,
+    "image": "/images/airlines/JapanAirlines.png"
+  },
+  {
+    "id": 5,
+    "from": "New York",
+    "to": "Los Angeles",
+    "departureDate": "2024-12-21",
+    "arrivalDate": "2024-12-21",
+    "returnDate": "2024-12-25",
+    "departureTime": "14:00",
+    "arrivalTime": "19:30",
+    "flightStops": 0,
+    "flightNumber": "DL101",
+    "classes": [
+      {
+        "classType": "Economy",
+        "prices": {
+          "adult": 200,
+          "child": 150,
+          "infant": 50
+        }
+      },
+      {
+        "classType": "Premium Economy",
+        "prices": {
+          "adult": 350,
+          "child": 250,
+          "infant": 100
+        }
+      }
+    ],
+    "airline": "Delta Airlines",
+    "travelTime": "5h 30m",
+    "directFlight": true,
+    "image": "/images/airlines/DeltaAirlines.png"
   }
 ]
