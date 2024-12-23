@@ -4,6 +4,8 @@ import FlightSearchForm from "../components/FlightSearchForm";
 import { useFlightSearchParams } from "../context/FlightContext";
 import { useNavigate } from "react-router-dom";
 
+import { motion } from "framer-motion";
+
 function Flight() {
   const { searchParams, setSearchParams } = useFlightSearchParams();
   const [flights, setFlights] = useState([]);
@@ -62,14 +64,33 @@ function Flight() {
     });
 
     setFilteredFlights(filteredFlights);
+
+    // Animations for Framer Motion
+    const containerVariants = {
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.4, ease: "easeOut", staggerChildren: 0.2 },
+      },
+    };
+
+    const cardVariants = {
+      hidden: { opacity: 0, scale: 0.9 },
+      visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+    };
   };
 
   return (
     <div>
       <div className="bg-gray-100 relative">
         {/* Hero Section */}
-        <div className="container mx-auto p-6 flex items-center justify-between">
-          {/* Left Image */}
+        <motion.div
+          className="container mx-auto p-6 flex items-center justify-between"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           <div className="w-1/4">
             <img
               src="./images/vacation.png"
@@ -78,7 +99,6 @@ function Flight() {
             />
           </div>
 
-          {/* Center Heading */}
           <div className="text-center w-1/2">
             <h1 className="text-6xl font-bold mb-2">Flight</h1>
             <p className="text-gray-600 text-lg">
@@ -86,7 +106,6 @@ function Flight() {
             </p>
           </div>
 
-          {/* Right Image */}
           <div className="w-1/4">
             <img
               src="./images/plane-2.png"
@@ -94,7 +113,7 @@ function Flight() {
               className="object-contain w-full"
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Flight Search Form */}
         <div className="container mx-auto p-8 mt-8">
@@ -110,9 +129,9 @@ function Flight() {
         </div>
 
         {/* Search Results Section */}
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-8">
           {filteredFlights.length > 0 ? (
-            <div className="mt-6">
+            <div className="mt-6 ">
               <h2 className="text-2xl font-semibold mb-4">Search Flights</h2>
               {filteredFlights.map((flight, index) => {
                 const selectedClass = flight.classes.find(
@@ -275,7 +294,7 @@ function Flight() {
               })}
             </div>
           ) : (
-            <p className="text-left mt-2">
+            <p className="container mx-auto text-left">
               No flights found for the given search criteria.
             </p>
           )}

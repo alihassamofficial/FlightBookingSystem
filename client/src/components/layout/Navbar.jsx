@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="bg-blue-500 p-4 text-white sticky top-0 z-50 shadow-md">
+    <nav className="bg-blue-500 p-4 text-white  top-0 z-50 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo on the left */}
         <div className="text-lg font-semibold">
@@ -15,12 +15,12 @@ function Navbar() {
         {/* Navigation links on the right */}
         <ul className="flex space-x-6">
           <li>
-            {/* <Link to="/" className="hover:text-gray-200">
+            <Link to="/" className="hover:text-gray-200">
               Home
-            </Link> */}
+            </Link>
           </li>
           <li>
-            <Link to="/" className="hover:text-gray-200">
+            <Link to="/flight" className="hover:text-gray-200">
               Flight
             </Link>
           </li>

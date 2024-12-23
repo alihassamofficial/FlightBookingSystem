@@ -4,7 +4,7 @@ module.exports = (res, result) => {
       // Handle Error object or string message
       const errorMessage =
         result.error.message || result.error || "An unexpected error occurred";
-
+      console.log(errorMessage);
       const statusCode = result.error.statusCode || 400; // Default to 400 for bad requests
       return res.status(statusCode).send({
         status: statusCode,

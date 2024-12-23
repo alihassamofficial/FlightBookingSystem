@@ -5,7 +5,7 @@ module.exports = {
       const data = await models.users.create({ ...body });
       return { data: data };
     } catch (error) {
-      return { error: error.errors[0].message };
+      return { error: error };
     }
   },
 
@@ -22,20 +22,37 @@ module.exports = {
       return { error: error.errors[0].message };
     }
   },
-  getUser: async ({ username, userId }) => {
+  // getUser: async ({ username, userId }) => {
+  //   try {
+  //     const data = await models.users.findOne({
+  //       where: { ...(username === "false" ? { userId } : { username }) },
+  //       // attributes: {
+  //       //   exclude: ["password", "deletedAt"],
+  //       // },
+  //       paranoid: false,
+  //     });
+  //     return { data };
+  //   } catch (error) {
+  //     return { error };
+  //   }
+  // },
+  getUser: async ({ username, email, userId }) => {
     try {
+      const condition = username
+        ? { username }
+        : email
+        ? { email }
+        : { userId };
       const data = await models.users.findOne({
-        where: { ...(username === "false" ? { userId } : { username }) },
-        // attributes: {
-        //   exclude: ["password", "deletedAt"],
-        // },
-        paranoid: false,
+        where: condition,
+        paranoid: false, // if soft delete is used
       });
-      return { data };
+      return { data }; // Return either null or the user data
     } catch (error) {
       return { error };
     }
   },
+
   //{ userId, ...body } here we are destructuring, separating userId to apply where condition ,
   //and then applying rest operator with body to pass the rest of data for iupdation
   updateUser: async ({ userId, ...body }) => {

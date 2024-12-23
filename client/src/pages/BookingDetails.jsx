@@ -1,12 +1,16 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFlightSearchParams } from "../context/FlightContext";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+import { motion } from "framer-motion";
 
 const BookingDetailsForm = () => {
-  const { searchParams, setSearchParams } = useFlightSearchParams();
-
+  const { searchParams } = useFlightSearchParams();
+  const navigate = useNavigate();
   const location = useLocation();
-  const { flight } = location.state; // Get the flight data passed in state
+  const { flight } = location.state;
 
   const selectedClass = flight.classes.find(
     (cls) =>
@@ -18,11 +22,42 @@ const BookingDetailsForm = () => {
     selectedClass.prices.child * searchParams.childCount +
     selectedClass.prices.infant * searchParams.infantCount;
 
+  const handleNextClick = (values) => {
+    navigate("/thanksforbooking", {
+      state: { flight, bookingDetails: values },
+    });
+  };
+
+  const validationSchema = Yup.object({
+    gender: Yup.string().required("Gender is required"),
+    firstName: Yup.string()
+      .max(20, "First name must be 20 characters or less")
+      .required("First name is required"),
+    lastName: Yup.string()
+      .max(20, "Last name must be 20 characters or less")
+      .required("Last name is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    nationality: Yup.string().required("Nationality is required"),
+    phone: Yup.string()
+      .matches(/^[0-9]+$/, "Phone number must be numeric")
+      .required("Phone number is required"),
+    dateOfBirth: Yup.date().required("Date of Birth is required"),
+    postalCode: Yup.string().required("Postal code is required"),
+    flightNumber: Yup.string().required("Flight number is required"),
+  });
+
   return (
-    <div className="bg-gray-50 min-h-screen p-4 flex justify-center">
-      <div className="w-full max-w-6xl bg-white shadow-md rounded-lg p-6">
+    <motion.div
+      className="bg-gray-50 min-h-screen p-4 flex justify-center"
+      initial={{ opacity: 0 }} // Initial state: transparent
+      animate={{ opacity: 1 }} // Animate to fully visible
+      transition={{ duration: 0.8 }} // Fade duration
+    >
+      <div className="w-full max-w-6xl p-6">
         {/* Step Indicator */}
-        <div className="flex justify-around items-center mb-8">
+        <div className="flex justify-around items-center bg-white shadow-md rounded-lg p-4 mb-8">
           <div className="flex items-center">
             <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center">
               ✓
@@ -36,7 +71,7 @@ const BookingDetailsForm = () => {
               2
             </div>
             <span className="ml-2 text-sm font-semibold text-blue-600">
-              Your Details
+              Booking Details
             </span>
           </div>
           <div className="flex items-center">
@@ -44,7 +79,7 @@ const BookingDetailsForm = () => {
               3
             </div>
             <span className="ml-2 text-sm font-semibold text-gray-500">
-              Final Step
+              Confirmation
             </span>
           </div>
         </div>
@@ -52,72 +87,171 @@ const BookingDetailsForm = () => {
         {/* Main Content */}
         <div className="grid grid-cols-3 gap-4">
           {/* Left Form */}
-          <div className="col-span-2">
+          <motion.div
+            className="col-span-2 bg-white shadow-md rounded-lg p-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <h2 className="text-xl font-bold mb-4">Enter Your Details</h2>
-            <form className="grid grid-cols-2 gap-4">
-              <select className="col-span-1 border p-2 rounded">
-                <option>Gender</option>
-                <option>Male</option>
-                <option>Female</option>
-              </select>
-              <input
-                type="text"
-                placeholder="First Name"
-                className="col-span-1 border p-2 rounded"
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                className="col-span-2 border p-2 rounded"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className="col-span-1 border p-2 rounded"
-              />
-              <input
-                type="text"
-                placeholder="Nationality"
-                className="col-span-1 border p-2 rounded"
-              />
-              <input
-                type="text"
-                placeholder="Your Number"
-                className="col-span-1 border p-2 rounded"
-              />
-              <input
-                type="date"
-                placeholder="Date of Birth"
-                className="col-span-1 border p-2 rounded"
-              />
-              <input
-                type="text"
-                placeholder="Postal Code"
-                className="col-span-1 border p-2 rounded"
-              />
-              <input
-                type="text"
-                placeholder="Flight Number"
-                className="col-span-1 border p-2 rounded"
-              />
-            </form>
-
-            {/* Save Details */}
-            <div className="mt-6">
-              <h3 className="font-semibold">Save your details!</h3>
-              <p className="text-sm text-gray-500 mb-2">
-                Use your contact details to create an account for faster
-                bookings.
-              </p>
-              <label className="flex items-center">
-                <input type="checkbox" className="mr-2" />
-                <span className="text-sm">Save my details for next time</span>
-              </label>
-            </div>
-          </div>
+            <Formik
+              initialValues={{
+                gender: "",
+                firstName: "",
+                lastName: "",
+                email: "",
+                nationality: "",
+                phone: "",
+                dateOfBirth: "",
+                postalCode: "",
+                flightNumber: "",
+              }}
+              validationSchema={validationSchema}
+              onSubmit={handleNextClick}
+            >
+              {({ isSubmitting }) => (
+                <Form className="grid grid-cols-2 gap-4">
+                  <div className="col-span-1">
+                    <Field
+                      name="gender"
+                      as="select"
+                      className="border p-2 rounded w-full"
+                    >
+                      <option value="">Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </Field>
+                    <ErrorMessage
+                      name="gender"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <Field
+                      name="firstName"
+                      type="text"
+                      placeholder="First Name"
+                      className="border p-2 rounded w-full"
+                    />
+                    <ErrorMessage
+                      name="firstName"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <Field
+                      name="lastName"
+                      type="text"
+                      placeholder="Last Name"
+                      className="border p-2 rounded w-full"
+                    />
+                    <ErrorMessage
+                      name="lastName"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <Field
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                      className="border p-2 rounded w-full"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <Field
+                      name="nationality"
+                      type="text"
+                      placeholder="Nationality"
+                      className="border p-2 rounded w-full"
+                    />
+                    <ErrorMessage
+                      name="nationality"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <Field
+                      name="phone"
+                      type="text"
+                      placeholder="Your Number"
+                      className="border p-2 rounded w-full"
+                    />
+                    <ErrorMessage
+                      name="phone"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <Field
+                      name="dateOfBirth"
+                      type="date"
+                      placeholder="Date of Birth"
+                      className="border p-2 rounded w-full"
+                    />
+                    <ErrorMessage
+                      name="dateOfBirth"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <Field
+                      name="postalCode"
+                      type="text"
+                      placeholder="Postal Code"
+                      className="border p-2 rounded w-full"
+                    />
+                    <ErrorMessage
+                      name="postalCode"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <Field
+                      name="flightNumber"
+                      type="text"
+                      placeholder="Flight Number"
+                      className="border p-2 rounded w-full"
+                    />
+                    <ErrorMessage
+                      name="flightNumber"
+                      component="div"
+                      className="text-red-600 text-sm"
+                    />
+                  </div>
+                  <div className="col-span-2 flex justify-end mt-4">
+                    <button
+                      type="submit"
+                      className="bg-blue-600 text-white px-6 py-2 w-full rounded-md hover:bg-blue-700"
+                      disabled={isSubmitting}
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </motion.div>
 
           {/* Right Section */}
-          <div className="col-span-1 space-y-4">
+          <motion.div
+            className="col-span-1 space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             {/* Booking Summary Card */}
             <div className="bg-white rounded-lg shadow-md p-4">
               <h3 className="text-lg font-semibold mb-4">
@@ -145,8 +279,8 @@ const BookingDetailsForm = () => {
                   </strong>
                 </p>
                 <p className="text-xs text-gray-500 mt-2">
-                  Operated by {flight.airline} | Flight {flight.flightNumber}{" "}
-                  <br />
+                  Operated by {flight.airline} <br />
+                  {searchParams.classType} | Flight {flight.flightNumber} <br />
                   25KG luggage free
                 </p>
               </div>
@@ -203,10 +337,10 @@ const BookingDetailsForm = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

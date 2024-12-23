@@ -7,10 +7,37 @@ const responseHandler = require("../responseHandler");
 
 // Controller function to handle creating a user
 const create = async (req, res) => {
+  console.log(req.body);
   try {
+    // Check if the username already exists
+    const existingUsernameUser = await getUser({ username: req.body.username });
+    if (existingUsernameUser.data) {
+      return responseHandler(res, {
+        error: {
+          message:
+            "Username already in use. Please choose a different username.",
+          statusCode: 400,
+        },
+      });
+    }
+
+    // Check if the email already exists
+    const existingEmailUser = await getUser({ email: req.body.email });
+    console.log(existingEmailUser);
+    if (existingEmailUser.data) {
+      return responseHandler(res, {
+        error: {
+          message: "Email already in use. Please use a different email.",
+          statusCode: 400,
+        },
+      });
+    }
+
+    // Create the new user if no conflicts
     const user = await createUser(req.body);
     return responseHandler(res, user);
   } catch (error) {
+    console.error(error); // Log any other errors for debugging
     return responseHandler(res, { error: error });
   }
 };

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const [signupErr, setsignupErr] = useState("");
+  const navigate = useNavigate();
   const initialValues = {
     name: "",
     username: "",
@@ -30,124 +33,124 @@ const SignUp = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/user/create",
-        values
+        "http://localhost:5000/user/create",
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-
-      console.log("Form values:", values);
-
-      alert(response.data.message || "User created successfully!");
+      if (response.data) {
+        navigate("/");
+      }
     } catch (error) {
-      alert(error.response?.data?.error || "Something went wrong");
+      const errorMessage =
+        error.response?.data?.error?.message ||
+        "An error occurred during signup";
+      setsignupErr(errorMessage);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Sign Up
-        </h2>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form className="space-y-4">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
+    <div className="flex min-h-screen">
+      {/* Left Section: Form */}
+      <div className="w-full md:w-1/2 bg-white flex items-center justify-center">
+        <div className="w-full max-w-md px-6 py-8">
+          <Link to="/" className="text-blue-500 text-sm mb-4 inline-block">
+            &larr; Back to Home
+          </Link>
+          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+            Create an account
+          </h2>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ isSubmitting }) => (
+              <Form className="space-y-4">
+                <div>
+                  <Field
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
+                  />
+                  <ErrorMessage
+                    name="name"
+                    component="div"
+                    className="text-sm text-red-500 mt-1"
+                  />
+                </div>
+                <div>
+                  <Field
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
+                  />
+                  <ErrorMessage
+                    name="username"
+                    component="div"
+                    className="text-sm text-red-500 mt-1"
+                  />
+                </div>
+                <div>
+                  <Field
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-sm text-red-500 mt-1"
+                  />
+                </div>
+                <div>
+                  <Field
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-sm text-red-500 mt-1"
+                  />
+                </div>
+                {/* Error message */}
+                {signupErr && (
+                  <div className="text-sm text-red-500 mt-2">{signupErr}</div>
+                )}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full py-2 px-4 rounded-lg text-white ${
+                    isSubmitting
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  }`}
                 >
-                  Name
-                </label>
-                <Field
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
-                <ErrorMessage
-                  name="name"
-                  component="div"
-                  className="text-sm text-red-500 mt-1"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Username
-                </label>
-                <Field
-                  type="text"
-                  name="username"
-                  id="username"
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  className="text-sm text-red-500 mt-1"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email
-                </label>
-                <Field
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="text-sm text-red-500 mt-1"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </label>
-                <Field
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="text-sm text-red-500 mt-1"
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-2 px-4 rounded-md text-white ${
-                  isSubmitting
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                }`}
-              >
-                {isSubmitting ? "Signing Up..." : "Sign Up"}
-              </button>
-            </Form>
-          )}
-        </Formik>
+                  {isSubmitting ? "Creating Account..." : "Create Account"}
+                </button>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
+      {/* Right Section: Background Image */}
+      <div
+        className="hidden md:block md:w-1/2 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/login.jpg')",
+        }}
+      ></div>
     </div>
   );
 };

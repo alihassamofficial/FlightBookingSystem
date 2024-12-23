@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const responseHandler = require("../responseHandler");
 
-// Validation schema for creating a user
+// Backend validation schema using Joi
 const createUserValidation = Joi.object({
   name: Joi.string().min(3).max(34).required(), // Name must be a string, 3-34 characters, and is required
   username: Joi.string().min(6).max(34).required(), // Username must be a string, 6-34 characters, and is required
@@ -34,7 +34,7 @@ const createUser = async (req, res, next) => {
     await createUserValidation.validateAsync(req.body);
     next(); // If validation passes, proceed to the next middleware or route handler
   } catch (error) {
-    console.log(error);
+    // console.log(res.status(400).json({ error: error.details[0].message }));
     // Send a response with validation error details if validation fails
     return responseHandler(res, { error: error.message });
   }
