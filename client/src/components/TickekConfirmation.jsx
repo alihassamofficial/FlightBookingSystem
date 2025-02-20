@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 export default function TickekConfirmation() {
   const { searchParams, setSearchParams } = useFlightSearchParams();
   const location = useLocation();
-  const { flight } = location.state;
+  const { flight, totalPrice } = location.state;
   return (
     <motion.div
       className="bg-gray-50 min-h-screen p-4 flex justify-center"
@@ -99,7 +99,7 @@ export default function TickekConfirmation() {
               </div>
               <div className="text-end">
                 <div className="text-gray-500">PRICE</div>
-                <div>$425.6</div>
+                <div>${totalPrice}</div>
               </div>
             </div>
 

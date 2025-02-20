@@ -192,18 +192,33 @@ function Flight() {
 
                       <div className="text-center">
                         <p className="text-sm text-gray-500">{`${flight.travelTime}`}</p>
-                        <div className="flex gap-2 items-center text-gray-700">
-                          <p className="text-lg font-bold">
-                            {flight.departureTime}{" "}
-                          </p>
+                        <div className="flex gap-4 items-center justify-center text-gray-700">
+                          {/* Departure Details */}
+                          <div className="flex flex-col items-center">
+                            <p className="text-lg font-bold">
+                              {flight.departureTime}
+                            </p>
+                            <p className="text-gray-500  whitespace-nowrap">
+                              {flight.from}
+                            </p>
+                          </div>
+
+                          {/* Arrow Icon */}
                           <img
                             src="./images/route-plan.png"
                             alt="Arrow"
                             className="w-full h-full object-contain block"
                           />
-                          <p className="text-lg font-bold">
-                            {flight.arrivalTime}
-                          </p>
+
+                          {/* Arrival Details */}
+                          <div className="flex flex-col items-center">
+                            <p className="text-lg font-bold">
+                              {flight.arrivalTime}
+                            </p>
+                            <p className="text-gray-500  whitespace-nowrap">
+                              {flight.to}
+                            </p>
+                          </div>
                         </div>
                         <p className="text-sm text-gray-500">{`${flight.flightStops} Stops`}</p>
                       </div>

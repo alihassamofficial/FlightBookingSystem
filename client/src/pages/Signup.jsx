@@ -42,7 +42,7 @@ const SignUp = () => {
         }
       );
       if (response.data) {
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       const errorMessage =

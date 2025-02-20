@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 function Home() {
+  const navigate = useNavigate();
+
   // Hook for Hero Section animation
   const [heroRef, heroInView] = useInView({ threshold: 0.3 });
 
@@ -38,7 +40,7 @@ function Home() {
               </p>
               <div className="mt-6">
                 <Link
-                  to="/"
+                  to="/flight"
                   className=" bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
                 >
                   Book Now
@@ -97,7 +99,7 @@ function Home() {
               </div>
               <div className="mt-6">
                 <Link
-                  to="/"
+                  to="/flight"
                   className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
                 >
                   Book Now
@@ -195,7 +197,7 @@ function Home() {
                 </p>
                 <div className="">
                   <Link
-                    to="/"
+                    to="/contact-us"
                     className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
                   >
                     Contact Us

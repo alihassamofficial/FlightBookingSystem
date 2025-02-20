@@ -148,7 +148,7 @@ function FlightSearchForm({ onFlightSearch, flights }) {
           onChange={(date) => handleDateChange("returnDate", date)}
           dateFormat="yyyy-MM-dd"
           disabled
-          className="p-2 rounded border w-full text-black"
+          className="p-2 rounded border w-full text-black placeholder-white"
           placeholderText="Select return date"
           minDate={today}
         />

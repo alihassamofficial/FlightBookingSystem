@@ -24,7 +24,7 @@ const BookingDetailsForm = () => {
 
   const handleNextClick = (values) => {
     navigate("/thanksforbooking", {
-      state: { flight, bookingDetails: values },
+      state: { flight, bookingDetails: values, totalPrice },
     });
   };
 
@@ -260,7 +260,13 @@ const BookingDetailsForm = () => {
               <div className="text-sm text-gray-600">
                 <p className="flex justify-between">
                   <span>{flight.from}</span>
-                  <span>→</span>
+                  <span>
+                    <img
+                      src="./images/route-plan.png"
+                      alt="Arrow"
+                      className="w-full h-full object-contain block"
+                    />
+                  </span>
                   <span>{flight.to}</span>
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
